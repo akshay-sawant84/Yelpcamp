@@ -19,8 +19,8 @@ const campgroundRoutes = require("./routes/campgrounds");
 const authRoutes = require("./routes/index");
 
 // const uri = 'mongodb://localhost/yelp_camp';
-const uri = 'mongodb+srv://akshaysawant:akshays84@yelpcamp-cae0y.mongodb.net/YelpCamp?retryWrites=true&w=majority';
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+// const uri = 'mongodb+srv://akshaysawant:akshays84@yelpcamp-cae0y.mongodb.net/YelpCamp?retryWrites=true&w=majority';
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
 .then(() => {
 	console.log("mongodb connected");
 })

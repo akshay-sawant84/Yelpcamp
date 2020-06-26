@@ -14,13 +14,16 @@ const moment = require('moment-timezone');
 const flash = require('express-flash');
 const dotenv = require('dotenv').config(); 
 
-
 const commentRoutes = require("./routes/comments");
 const campgroundRoutes = require("./routes/campgrounds");
 const authRoutes = require("./routes/index");
 
-const uri = 'mongodb://localhost/yelp_camp';
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// const uri = 'mongodb://localhost/yelp_camp';
+const uri = 'mongodb+srv://akshaysawant:akshays84@yelpcamp-cae0y.mongodb.net/YelpCamp?retryWrites=true&w=majority';
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+	console.log("mongodb connected");
+})
 
 app.set('view engine', 'ejs');
 
@@ -92,3 +95,4 @@ app.get("*", (req,res) => {
 })
 
 app.listen(process.env.PORT, process.env.IP);
+

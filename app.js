@@ -13,7 +13,7 @@ const seedDB = require('./seeds');
 const moment = require('moment-timezone');
 const flash = require('express-flash');
 const dotenv = require('dotenv').config(); 
-const port = 5000;
+
 
 const commentRoutes = require("./routes/comments");
 const campgroundRoutes = require("./routes/campgrounds");
@@ -91,6 +91,4 @@ app.get("*", (req,res) => {
 	res.render("404");
 })
 
-app.listen(port, (req, res) => {
-	console.log(`The YelpCamp Server is running on ${port}`);
-});
+app.listen(process.env.PORT, process.env.IP);

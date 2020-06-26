@@ -1,0 +1,59 @@
+<%- include ("../partials/header") %>
+<div class="profile-section py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5 d-flex flex-column justify-content-center align-items-center">
+				<div class="">
+					<img class="profile-img rounded-circle" src="<%= user.avatar %>" alt="user profile image">
+				</div>
+				<div>
+				<h5 class="my-3 text-center">
+					<%= user.firstName  + " " +  user.lastName %>
+				</h5>
+				<p class="text-center">
+					@<%= user.username %>
+				</p>
+				
+				<p>
+					<i class="fas fa-envelope px-2"></i><%= user.email %>
+				</p>
+				<p>
+					<i class="fas fa-map-marker-alt px-2"></i><%= user.city %>
+				</p>
+				<p>
+					<i class="fas fa-birthday-cake px-2"></i>Born <%= moment.tz(user.bday, "Asia/Kolkata").format("MMMM YYYY") %>
+				</p>
+				<p>
+					<i class="fas fa-calendar-week px-2"></i></i>Joined <%= moment.tz(user.date, "Asia/Kolkata").format("MMMM YYYY") %>
+				</p>	
+				</div>
+			</div>
+			<div class="col-md-7">
+				<h4>
+					<%= user.username %>'s Camgrounds :
+				</h4>
+				<h6>
+					(total campgrounds : <%= campgrounds.length %>)
+				</h6>
+				<% if(campgrounds.length < 1){ %>
+						<h5>No campground</h5>				   
+				<% } else { %>
+					<% campgrounds.forEach((campground) => { %>
+					<ul>
+						<li>
+							<a href="/campgrounds/<%= campground.id %>">
+								<%= campground.name %>
+							</a>
+						</li>
+					</ul>
+					<% }) %>
+	
+				<% } %>
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+	
+	<%- include ("../partials/footer") %>

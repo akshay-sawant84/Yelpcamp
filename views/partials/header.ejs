@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="/stylesheets/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+	<link href="css/rating_simple.css" rel="stylesheet" type="text/css">
+	<link rel="icon" type="image/png" href="/logo.jpg" />
+	<title>YelpCamp</title>
+</head>
+
+<body onload="setTimeout('myFunction()', 1000)">
+
+	<div id="loading"></div>
+
+	<% if(currentUser) { %>
+		<div class="profile-tab">
+			<div class="container d-flex flex-row justify-content-end align-items-center">
+				<a class="btn d-flex flex-row align-items-center" href="/users/<%= currentUser.id %>">
+					<img class="tab-avatar" src="<%= currentUser.avatar %>" alt="profile-picture">
+					<h6 class="mb-0 px-2">
+						<%= currentUser.username %>
+					</h6>
+					<i class="fas fa-chevron-down px-1"></i>
+				</a>
+			</div>
+		</div>
+		<% } %>
+
+			<nav id="1" class="navbar navbar-expand-lg sticky-top navbar-light bg-light">
+				<div class="container">
+					<a class="navbar-brand" href="/">
+						<img src="/city.png" width="50" height="40">
+						<span class="pl-3">YelpCamp</span>
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item nav-itemss d-flex">
+								<a class="nav-link" href="/">
+									Home
+								</a>
+								<a class="nav-link" href="/campgrounds">
+									Campgrounds
+								</a>
+								<a class="nav-link" href="/about">
+									<i class="fas fa-exclamation-circle px-1"></i>About
+								</a>
+							</li>
+						</ul>
+						<ul class="navbar-nav ml-auto">
+							<%	if(!currentUser){ %>
+								<li class="nav-item">
+									<a class="nav-link" href="/login">
+										<i class="fas fa-sign-out-alt px-1"></i>Login</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="/register">
+										<i class="fas fa-user-plus px-1"></i>Sign Up</a>
+								</li>
+								<%	}else{ %>
+									<li class="nav-item">
+										<a class="nav-link">Signed In As
+											<b class="px-1">
+												<%= currentUser.username %>
+											</b>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" href="/logout">
+											<img src="https://image.flaticon.com/icons/svg/1828/1828477.svg" class="logout"> Logout</a>
+									</li>
+									<%	} %>
+
+						</ul>
+					</div>
+				</div>
+			</nav>
+
+			<div class="container">
+
+				<%	if(success_msg && success_msg.length > 0){ %>
+					<div class=" my-2 alert text-center alert-success">
+						<%= success_msg %>
+					</div>
+					<% } %>
+
+						<%	if(error_msg && error_msg.length > 0){ %>
+							<% error_msg.forEach((error) => { %>
+								<div class="my-2 alert text-center alert-danger">
+									<%= error %>
+								</div>
+								<%	}) %>
+
+									<% } %>
+
+			</div>

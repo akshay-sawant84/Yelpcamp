@@ -1,0 +1,187 @@
+<%- include ("../partials/header") %>
+
+	<!-- Back to top button -->
+	<a id="button">
+		<i class="fas fa-chevron-up arrow-icon-up"></i>
+	</a>
+
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-4 infolist">
+				<h4 class="text-center">
+					<%= campground.name %>
+				</h4>
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h6>
+							Address :
+						</h6>
+						<p class="mb-0">
+							<%= campground.address %>
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h6>
+							Nearby Famous Location :
+						</h6>
+						<p class="mb-0">
+							<%= campground.nlocation %>
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h6>
+							Amenities :
+						</h6>
+						<p>
+							<% var amenities  = campground.amenities.split(",");%>
+							<ul>
+								<%for(var i=0;i<amenities.length;i++){%>
+									<li><%=amenities[i]%></li>
+								<% } %>
+                            </ul>
+						</p>
+					</li>
+			<li class="list-group-item">
+						<h6>
+							Opening Window : 
+						</h6>
+						<p class="mb-0">
+							<%= campground.owindow %>
+						</p>
+					</li>
+					
+					<li class="list-group-item">
+						<h6>
+							Email for contact
+						</h6>
+						<p class="mb-0">
+							<%= campground.email %>
+						</p>
+					</li>
+					
+				</ul>
+			</div>
+			<div class="col-md-8">
+				<div class="img-thumbnail p-0">
+					<img class="img-fluid w-100" src="<%= campground.image %>">
+					<div class="caption-full p-3">
+						<h4 class="float-right">
+							<i class="fas fa-rupee-sign px-2"></i>
+							<%= campground.price %>/night
+						</h4>
+						<h4 class="camp-name">
+							<a>
+								<%= campground.name %>
+							</a>
+						</h4>
+						<hr>
+						<p style="letter-spacing: .5px;">
+							<%= campground.description %>
+						</p>
+						<p>
+							<em>Submitted By :
+								<b class="pr-2 pl-1">
+									<a href="/users/<%= campground.author.id %>">
+										<%= campground.author.username %>
+									</a>
+								</b> -
+								<span class="pl-2">
+									<%= moment.tz(campground.date, "Asia/Kolkata").fromNow() %>
+								</span>
+							</em>
+						</p>
+
+						<% if( currentUser && campground.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin ){ %>
+							<div>
+								<a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit
+									<i class="fas fa-arrow-circle-right px-2"></i>
+								</a>
+								<form id="delete-form" class=" mx-3" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+									<input type="hidden" name="_method" value="DELETE">
+									<button type="submit" class="btn btn-danger">Delete
+										<i class="fas fa-arrow-circle-right px-2"></i>
+									</button>
+								</form>
+							</div>
+							<% } %>
+								<div class="my-3">
+									<a href="/campgrounds" class="btn btn-primary">
+										<i class="fas fa-arrow-circle-left px-2"></i>Go Back</a>
+								</div>
+
+					</div>
+				</div>
+
+				<!-- comment section -->
+				<div class="card card-body bg-light mt-4">
+					<div class="text-right">
+						<a class="btn btn-success" href="/campgrounds/<%= campground._id %>/comments/new">Leave a Comment
+							<i class="fas fa-paper-plane pl-2"></i>
+						</a>
+					</div>
+					<p class="mb-0">
+						Total Reviews :
+						<%= campground.comments.length %>
+					</p>
+					<hr>
+					<%	if(campground.comments.length === 0){ %>
+						<h5>
+							<em>No reviews yet</em>
+						</h5>
+						<%} else { %>
+							<% campground.comments.forEach((comment) => { %>
+
+								<div class="row">
+									<div class="col-md-12">
+										<b>
+											<%= comment.rating_value %><i class="fas fa-star px-1"></i>
+											<i class="fas fa-arrow-right px-2"></i>
+											<i class="fas fa-user-ninja px-1"></i><%= comment.author.username %>
+										</b>
+										<span class="float-right">
+											<%= moment.tz(comment.date, "Asia/Kolkata").fromNow() %>
+										</span>
+										<p>
+											<%= comment.text %>
+										</p>
+										<% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin ){ %>
+											<a class="btn btn-warning btn-sm" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">
+												<i class="fas fa-edit"></i>
+											</a>
+											<form class="delete-form" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+												<button class="btn btn-danger btn-sm mx-2">
+													<i class="fas fa-trash"></i>
+												</button>
+											</form>
+											<% } %>
+
+												<hr>
+									</div>
+								</div>
+								<% }) %>
+									<% } %>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%- include ("../partials/footer") %>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+		<script>
+			var btn = $('#button');
+			$(window).scroll(function() {
+				if ($(window).scrollTop() > 300) {
+					btn.addClass('show');
+				} else {
+					btn.removeClass('show');
+				}
+			});
+			btn.on('click', function(e) {
+				e.preventDefault();
+				$('html, body').animate({
+					scrollTop: 0
+				}, '300');
+			});
+		</script>

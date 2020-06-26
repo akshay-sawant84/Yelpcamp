@@ -1,0 +1,95 @@
+<%- include ("../partials/header") %>
+
+<!-- Back to top button -->
+<a id="button"><i class="fas fa-chevron-up arrow-icon-up"></i></a>
+
+	<div class="container py-3">
+		<header class="jumbotron text-center">
+			<div class="container" id="landing-header">
+				<h1 class="my-2 display-4">
+					<i class="fas fa-campground"></i> Welcome to YelpCamp..!!
+				</h1>
+				<h3 class="camping-slogan my-2">
+					Make camping experiences better
+				</h3>
+				<p class="my-3">
+					View our hand-picked campgrounds from all over the world
+				</p>
+				<p>
+					<a class="btn btn-primary btn-lg" href="/campgrounds/new">Add new Campground
+						<i class="fas fa-arrow-circle-right px-2"></i>
+					</a>
+				</p>
+				<form action="/campgrounds" class="form-inline d-flex justify-content-center" method="GET">
+
+					<div class="searchBox">
+
+						<input class="searchInput" type="text" name="search" placeholder="Search">
+						<button class="searchButton" type="submit">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+
+				</form>
+			</div>
+
+		</header>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<h3 class="text-center">
+					Our Most Popular Campgrounds..!!
+				</h3>
+			</div>
+		</div>
+
+		<div class="row mt-4">
+
+			<% campgrounds.forEach( (campgrounds) => { %>
+				<div class="col-md-3 col-sm-6 col-6  my-3 d-flex align-items-stretch">
+					<!-- <img src="  "  class="img-thumbnail">
+					<div class = "caption">
+						<h4>
+						
+					</h4>
+					</div> -->
+
+					<div class="card w-100">
+						<img class="card-img-top" src=" <%= campgrounds.image %> " alt="Card image cap">
+
+						<h5 class="card-title text-center sizing py-2 px-2">
+							<%= campgrounds.name %>
+						</h5>
+						<p class="d-flex justify-content-center">
+							<a class="btn btn-outline-success" href="/campgrounds/<%= campgrounds._id %>">More info
+								<i class="fas fa-arrow-circle-right px-2"></i>
+							</a>
+						</p>
+					</div>
+				</div>
+
+				<% }) %>
+		</div>
+
+	</div>
+	<%- include ("../partials/footer") %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script>
+	
+
+var btn = $('#button');
+
+$(window).scroll(function() {
+	if ($(window).scrollTop() > 300) {
+		btn.addClass('show');
+	} else {
+		btn.removeClass('show');
+	}
+});
+
+btn.on('click', function(e) {
+	e.preventDefault();
+	$('html, body').animate({ scrollTop: 0 }, '300');
+});
+</script>
+	

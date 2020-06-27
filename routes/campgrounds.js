@@ -158,7 +158,7 @@ router.put('/:id', middleware.checkCampgroundOwnership, (req, res) => {
 			data.name = req.body.name;
 			data.price = req.body.price;
 			data.image = req.body.image;
-			data.desc = req.sanitize(req.body.description);
+			data.desc = req.body.description;
 			data
 				.save()
 				.then(data => {

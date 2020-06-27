@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Campground = require('../models/campground');
 const middleware = require("../middleware");
-const expressSanitizer = require('express-sanitizer');
 
 //all campgrounds
 router.get('/', (req, res) => {

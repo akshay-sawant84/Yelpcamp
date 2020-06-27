@@ -98,7 +98,7 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 		let name = req.body.name;
 		let image = req.body.image;
 		let price = req.body.price;
-		let desc = req.body.description;
+		let desc = req.sanitize(req.body.description);
 		let address = req.body.address;
 		let nlocation = req.body.nlocation;
 		let email = req.body.email;
@@ -158,7 +158,7 @@ router.put('/:id', middleware.checkCampgroundOwnership, (req, res) => {
 			data.name = req.body.name;
 			data.price = req.body.price;
 			data.image = req.body.image;
-			data.description = req.body.description;
+			data.description = req.sanitize(req.body.description);
 			data
 				.save()
 				.then(data => {

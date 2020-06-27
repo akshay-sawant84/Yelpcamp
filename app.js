@@ -12,6 +12,7 @@ const User 	= require("./models/user");
 const seedDB = require('./seeds');
 const moment = require('moment-timezone');
 const flash = require('express-flash');
+const expressSanitizer = require('express-sanitizer');
 const dotenv = require('dotenv').config(); 
 
 const commentRoutes = require("./routes/comments");
@@ -31,10 +32,10 @@ app.set('view engine', 'ejs');
 //css file addition
 app.use(express.static(__dirname + "/public"));
 
-// app.use(express.json());
+app.use(express.json());
  
-// // Mount express-sanitizer middleware here
-// app.use(expressSanitizer());
+// Mount express-sanitizer middleware here
+app.use(expressSanitizer());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

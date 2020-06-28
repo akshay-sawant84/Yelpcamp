@@ -30,6 +30,19 @@
 					</li>
 					<li class="list-group-item">
 						<h6>
+							Activities :
+						</h6>
+						<p>
+							<% var amenities  = campground.activities.split(",");%>
+							<ul>
+								<%for(var i=0;i<activities.length;i++){%>
+									<li><%=activities[i]%></li>
+								<% } %>
+                            </ul>
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h6>
 							Amenities :
 						</h6>
 						<p>

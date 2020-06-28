@@ -14,6 +14,7 @@ var campgroundSchema = new Schema({
 	nlocation : String,
 	address : String,
 	email : String,
+	activities : String,
 	amenities : String,
 	owindow : String,
 	author: {

@@ -79,6 +79,9 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 	if(!req.body.address){
 		errors.push({ text: 'Address should not be empty' });
 	}
+	if(!req.body.activities){
+		errors.push({ text: 'Activities should not be empty' });
+	}
 	if(!req.body.amenities){
 		errors.push({ text: 'Amenities should not be empty' });
 	}
@@ -103,12 +106,13 @@ router.post('/', middleware.isLoggedIn, (req, res) => {
 		let nlocation = req.body.nlocation;
 		let email = req.body.email;
 		let amenities = req.body.amenities;
+		let activities = req.body.activities;
 		let owindow = req.body.owindow;
 		let author = {
 			id: req.user._id,
 			username: req.user.username
 		};
-		let newCampground = { name: name, price : price, image: image, description: desc, author: author, address : address, nlocation : nlocation, email : email, amenities : amenities, owindow : owindow };
+		let newCampground = { name: name, price : price, image: image, description: desc, author: author, address : address, nlocation : nlocation, email : email, activities : activities, amenities : amenities, owindow : owindow };
 		// campgrounds.push(newCampground);
 		//ceate a newCampground and save to DB
 		Campground.create(newCampground, (err, newlyCreated) => {
@@ -158,6 +162,12 @@ router.put('/:id', middleware.checkCampgroundOwnership, (req, res) => {
 			data.name = req.body.name;
 			data.price = req.body.price;
 			data.image = req.body.image;
+			data.address = req.body.address;
+			data.nlocation = req.body.nlocation;
+			data.activities = req.body.activities;
+			data.amenities = req.body.amenities;
+			data.owindow = req.body.owindow;
+			data.email = req.body.email;
 			data.description = req.sanitize(req.body.description);
 			data
 				.save()

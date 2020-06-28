@@ -149,7 +149,7 @@ body {
 }
 
 .searchBox:hover > .searchInput {
-	width: 240px;
+	width: 200px;
 	padding: 0 15px;
 }
 
@@ -186,7 +186,7 @@ body {
 
 @media screen and (max-width: 620px) {
 	.searchBox > .searchInput {
-		width: 250px;
+		width: 200px;
 		padding: 0 10px;
 	}
 }
@@ -383,3 +383,11 @@ background: linear-gradient(to bottom right, #E7E8E6, #E5E8E3);
 		padding-left : 10px;
 	}
 }
+
+
+@media (max-width: 700px){
+	.btn-lg{
+		font-size: 1rem;
+	}
+}
+
